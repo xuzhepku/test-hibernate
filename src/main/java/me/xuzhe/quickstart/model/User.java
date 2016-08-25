@@ -12,6 +12,17 @@ public class User {
     private String nickname;
     private Date born;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", born=" + born +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
