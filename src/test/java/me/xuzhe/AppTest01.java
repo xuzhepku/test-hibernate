@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by jason on 16/8/25.
@@ -17,25 +18,28 @@ public class AppTest01 {
     public void testAdd() {
         System.out.println("inside AppTest01");
         Session session = null;
-        try {
-            session = HibernateUtil.openSession();
-            session.beginTransaction();
+        for (int i = 0; i < 10; i++) {
+            try {
+                session = HibernateUtil.openSession();
+                session.beginTransaction();
 
-            // 真正业务逻辑
-            User u = new User();
-            u.setBorn(sdf.parse("1982-10-30"));
-            u.setNickname("jiji");
-            u.setUsername("xuzhe");
-            u.setPassword("123");
-            session.save(u);
-            // end of 真正业务逻辑
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (session != null) session.getTransaction().rollback();
-        } finally {
-            HibernateUtil.closeSession(session);
+                // 真正业务逻辑
+                User u = new User();
+                u.setBorn(sdf.parse("1982-10-30"));
+                u.setNickname("jiji");
+                u.setUsername("xuzhe");
+                u.setPassword("123");
+                session.save(u);
+                // end of 真正业务逻辑
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (session != null) session.getTransaction().rollback();
+            } finally {
+                HibernateUtil.closeSession(session);
+            }
         }
+
     }
 
     @Test
@@ -43,8 +47,12 @@ public class AppTest01 {
         Session session = null;
         try {
             session = HibernateUtil.openSession();
+
+            // 实际的业务逻辑
             User u = (User) session.load(User.class, 1);
             System.out.println(u);
+            // end of 实际的业务逻辑
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -96,4 +104,48 @@ public class AppTest01 {
         }
     }
 
+    @Test
+    public void testList() {
+        Session session = null;
+        try {
+            session = HibernateUtil.openSession();
+
+            // 实际的业务逻辑
+            List<User> users = session.createQuery("from User").list();// 主意括号中的User是对象。这里的 query 是对象查询语句
+            for (User u : users) {
+                System.out.println(u);
+            }
+
+            // end of 实际的业务逻辑
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            HibernateUtil.closeSession(session);
+        }
+    }
+
+    /**
+     * 分页
+     */
+    @Test
+    public void testPager() {
+        Session session = null;
+        try {
+            session = HibernateUtil.openSession();
+
+            // 实际的业务逻辑
+            List<User> users = session.createQuery("from User").setFirstResult(0).setMaxResults(5).list();
+            for (User u : users) {
+                System.out.println(u);
+            }
+
+            // end of 实际的业务逻辑
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            HibernateUtil.closeSession(session);
+        }
+    }
 }
