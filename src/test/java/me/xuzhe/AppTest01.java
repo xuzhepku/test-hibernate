@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
  */
 public class AppTest01 {
     private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
     @Test
     public void testAdd() {
         System.out.println("inside AppTest01");
@@ -35,7 +36,20 @@ public class AppTest01 {
         } finally {
             HibernateUtil.closeSession(session);
         }
-
-
     }
+
+    @Test
+    public void testLoad() {
+        Session session = null;
+        try {
+            session = HibernateUtil.openSession();
+            User u = (User) session.load(User.class, 1);
+            System.out.println(u);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            HibernateUtil.closeSession(session);
+        }
+    }
+
 }
