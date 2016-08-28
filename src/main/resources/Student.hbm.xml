@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Hibernate, Relational Persistence for Idiomatic Java
+  ~
+  ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later.
+  ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  -->
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 5.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="me.xuzhe.quickstart.model">
+
+    <class name="Student" table="t_student">
+        <id name="id">
+            <!--native兼容mysql和oracle自动递增，mysql叫increment, oracle叫sequence-->
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+        <property name="no"/>
+        <!--many-to-one:多对一,在多的那一方写;-->
+        <!--name:当前对象中属性名称;-->
+        <!--column:当前对象中外键名称-->
+        <many-to-one name="classroom" column="cid"/>
+    </class>
+
+</hibernate-mapping>

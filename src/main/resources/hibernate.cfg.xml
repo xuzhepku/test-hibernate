@@ -35,6 +35,8 @@
 
         <!--将配置实体bean hbm文件引入, what's the difference between file&resource??? 麻痹，本来就应该用resource，这傻逼讲错了-->
         <mapping resource="User.hbm.xml"/>
+        <mapping resource="Classroom.hbm.xml"/>
+        <mapping resource="Student.hbm.xml"/>
 
     </session-factory>
 
