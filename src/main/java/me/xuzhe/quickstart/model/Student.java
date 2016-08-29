@@ -40,4 +40,14 @@ public class Student {
     public void setClassroom(Classroom classroom) {
         this.classroom = classroom;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", no=" + no +
+                ", classroom=" + classroom +
+                '}';
+    }
 }

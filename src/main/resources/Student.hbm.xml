@@ -22,7 +22,8 @@
         <!--many-to-one:多对一,在多的那一方写;-->
         <!--name:当前对象中属性名称;-->
         <!--column:当前对象中外键名称-->
-        <many-to-one name="classroom" column="cid"/>
+        <!--casade 当指向的那个对象是transient对象的时候,会自动创建sql-->
+        <many-to-one name="classroom" column="cid" cascade="all"/>
     </class>
 
 </hibernate-mapping>

@@ -6,6 +6,16 @@ package me.xuzhe.quickstart.model;
 public class Classroom {
     private int id;
     private int grade;
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id=" + id +
+                ", grade=" + grade +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     private String name;
 
     public int getId() {
