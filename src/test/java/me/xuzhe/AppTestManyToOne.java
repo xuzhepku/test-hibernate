@@ -213,9 +213,12 @@ public class AppTestManyToOne {
             session.beginTransaction();
 
             // 真正业务逻辑
-            User u = new User();
-            u.setId(1);
-            session.delete(u);
+            // 此时删除会失败,注意在many的一方不要使用删除。(会导致先删除一个student,再删除classroom,但是classroom还有其他的student指向。所以删除会失败。
+            // 删除后,会先删除student,再删除classroom,删除classroom的时候报的错。
+            // student的hibernate配置文件中配置了manytoone的cascade。
+            // 特殊需求才使用cascade,一般情况下,add的业务逻辑是手动添加的。
+            Student s = session.load(Student.class, 29);
+            session.delete(s);
             // end of 真正业务逻辑
 
             session.getTransaction().commit();
