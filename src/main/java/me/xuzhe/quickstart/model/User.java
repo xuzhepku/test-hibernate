@@ -1,10 +1,13 @@
 package me.xuzhe.quickstart.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by jason on 16/8/24.
  */
+@Entity
+@Table(name = "t_user")
 public class User {
     private int id;
     private String username;
@@ -12,17 +15,19 @@ public class User {
     private String nickname;
     private Date born;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", born=" + born +
-                '}';
+    public Date getCreateDate() {
+        return createDate;
     }
 
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+    @Column(name = "create_date")
+    private Date createDate;
+
+
+    @Id
+    @GeneratedValue
     public int getId() {
         return id;
     }
@@ -61,5 +66,16 @@ public class User {
 
     public void setBorn(Date born) {
         this.born = born;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", born=" + born +
+                '}';
     }
 }
